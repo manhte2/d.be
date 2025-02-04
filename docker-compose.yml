@@ -1,0 +1,26 @@
+version: '3'
+services:
+  redis:
+    image: redis:latest
+    container_name: redis
+    restart: always
+    ports:
+      - '6379:6379'
+    volumes:
+      - redis_data:/data
+
+  be-app:
+    build:
+      context: .  # Sử dụng thư mục hiện tại để build Dockerfile
+      dockerfile: Dockerfile
+    container_name: be_api  # Đặt tên cho container
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/app  # Mount thư mục hiện tại vào container để hỗ trợ hot-reload
+      - /app/node_modules  # Tránh ghi đè thư mục node_modules trong container
+        #      - ./dist:/var/www/vpncn2/be/dist
+    restart: always  # Tự động khởi động lại container nếu bị dừng
+
+volumes:
+  redis_data:
