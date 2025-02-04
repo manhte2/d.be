@@ -9,7 +9,7 @@ services:
     volumes:
       - redis_data:/data
 
-  be-app:
+  be_vpncn2:
     build:
       context: .  # Sử dụng thư mục hiện tại để build Dockerfile
       dockerfile: Dockerfile
